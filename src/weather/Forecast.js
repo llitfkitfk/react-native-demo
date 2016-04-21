@@ -1,8 +1,8 @@
 var React = require('react-native');
 var {
-    StyleSheet,
-    Text,
-    View
+  StyleSheet,
+  Text,
+  View
 } = React;
 
 var Forecast = React.createClass({
@@ -24,19 +24,19 @@ var Forecast = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    bigText: {
-        flex: 2,
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#FFFFFF'
-    },
-    mainText: {
-        flex: 1,
-        fontSize: 16,
-        textAlign: 'center',
-        color: '#FFFFFF'
-    }
+  bigText: {
+    flex: 2,
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: '#FFFFFF'
+  },
+  mainText: {
+    flex: 1,
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  }
 })
 
 module.exports = Forecast;

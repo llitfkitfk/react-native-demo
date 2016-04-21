@@ -1,11 +1,11 @@
 var React = require('react-native');
 
 var {
-    StyleSheet,
-    View,
-    Text,
-    ListView,
-    Image
+  StyleSheet,
+  View,
+  Text,
+  ListView,
+  Image
 } = React;
 
 
@@ -16,53 +16,55 @@ var API_STEM = 'http://api.nytimes.com/svc/books/v3/lists'
 var ENTRYPOINT = `${API_STEM}/${QUERY_TYPE}?response-format=json&api-key=${API_KEY}`;
 
 var BookList = React.createClass({
-    getInitialState() {
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-        return {
-            dataSource: ds.cloneWithRows([])
-        };
-    },
-    componentDidMount: function () {
-        this._refreshData();
-    },
-    _renderHeader() {
+  getInitialState() {
+    var ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    return {
+      dataSource: ds.cloneWithRows([])
+    };
+  },
+  componentDidMount: function () {
+    this._refreshData();
+  },
+  _renderHeader() {
 
-    },
-    _renderFooter() {
+  },
+  _renderFooter() {
 
-    },
-    _renderRow: function(rowData) {
-      return <BookItem
-        coverURL={rowData.book_image}
-        title={rowData.title}
-        author={rowData.author}
+  },
+  _renderRow: function(rowData) {
+    return <BookItem
+      coverURL={rowData.book_image}
+      title={rowData.title}
+      author={rowData.author}
+      />
+
+  },
+  _refreshData() {
+    fetch(ENTRYPOINT)
+    .then((response) => response.json())
+    .then((rjson)=> {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(rjson.results.books)
+      });
+    });
+  },
+  render() {
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this._renderRow}
+        renderHeader={this._renderHeader}
+        renderFooter={this._renderFooter}
         />
-
-    },
-    _refreshData() {
-       fetch(ENTRYPOINT)
-       .then((response) => response.json())
-       .then((rjson)=> {
-         this.setState({
-           dataSource: this.state.dataSource.cloneWithRows(rjson.results.books)
-         });
-       });
-    },
-    render() {
-        return (
-            <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this._renderRow}
-                />
-        );
-    }
+    );
+  }
 });
 
 var styles = StyleSheet.create({
-    listContainer: {
+  listContainer: {
 
-    }
+  }
 });
 module.exports = BookList;
