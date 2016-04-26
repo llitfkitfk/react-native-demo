@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react-native');
 
 var {
@@ -19,6 +21,8 @@ var styles = StyleSheet.create({
   },
   cover: {
     flex: 1,
+    height: 150,
+    resizeMode: 'contain'
   },
   info: {
 
