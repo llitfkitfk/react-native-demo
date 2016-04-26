@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react-native');
 var { AppRegistry } = React;
 var DemoApp = require('./src/listview/BookList');
