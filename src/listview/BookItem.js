@@ -8,32 +8,7 @@ var {
   ListView,
 } = React;
 
-var styles = StyleSheet.create({
-  bookItem: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    borderBottomColor: '#AAAAAA',
-    borderBottomWidth: 1,
-    padding: 5
-  },
-  cover: {
-    flex: 1,
-    height: 150,
-    resizeMode: 'contain'
-  },
-  info: {
-
-  },
-  author: {
-
-  },
-
-  title: {
-
-  }
-
-});
+var styles = require('./../styles/styles');
 
 var BookItem = React.createClass({
   propTypes: {
