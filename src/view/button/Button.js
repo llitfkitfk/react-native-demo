@@ -4,7 +4,7 @@ var {
   View,
   TouchableHighlight
 } = React;
-var styles = require('./../styles/buttons');
+var styles = require('./../../styles/buttons');
 
 var Button = React.createClass({
   propTypes: {
@@ -16,7 +16,7 @@ var Button = React.createClass({
     return (
       <TouchableHighlight onPress={this.props.onPress}>
         <View style={[styles.button, this.props.style]}>
-          <Text>
+          <Text style={styles.text}>
             {this.props.label}
           </Text>
         </View>

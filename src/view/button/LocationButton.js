@@ -1,5 +1,6 @@
 var React = require('react-native');
-var styles = require('./../styles/buttons');
+var { Image, CameraRoll } = React;
+var styles = require('./../../styles/buttons');
 var Button = require('./Button');
 
 var LocationButton = React.createClass({

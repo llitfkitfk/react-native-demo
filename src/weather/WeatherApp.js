@@ -11,7 +11,8 @@ var {
 } = React;
 
 var Forecast = require('./Forecast');
-var LocationButton = require('./../button/LocationButton');
+var CameraBG = require('./../view/bg/CameraBG');
+var LocationButton = require('./../view/button/LocationButton');
 var STORAGE_KEY = '@SmarterWeather:zip';
 var WEATHER_API_KEY = '122be18d719008590f9b1335db146963';
 var API_STEM = 'http://api.openweathermap.org/data/2.5/weather?';
@@ -71,10 +72,7 @@ var WeatherApp = React.createClass({
         temp={this.state.forecast.temp} />;
     }
     return (
-      <View style={styles.container}>
-        <Image source={require('image!flowers') }
-          resizeMode='cover'
-          style={styles.backdrop}>
+      <CameraBG>
           <View style={styles.overlay}>
             <View style={styles.row}>
               <Text style={styles.mainText}>
@@ -92,8 +90,7 @@ var WeatherApp = React.createClass({
             </View>
             {content}
           </View>
-        </Image>
-      </View>
+      </CameraBG>
     );
   }
 });
