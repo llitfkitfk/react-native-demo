@@ -31,7 +31,10 @@
    * on the same Wi-Fi network.
    */
 
+  // Uploading to Your Simulator
   jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  // Uploading to Your iOS Device
+  // jsCodeLocation = [NSURL URLWithString:@"http://your-Mac’s-IP:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
