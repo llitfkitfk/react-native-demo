@@ -34,7 +34,9 @@ var WeatherApp = React.createClass({
     .done();
   },
   _getForecastForZip: function (zip) {
-    this._getForecast(`${API_STEM}q=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
+    if (zip != "") {
+      this._getForecast(`${API_STEM}q=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
+    }
   },
   _getForecast: function (url, cb) {
     fetch(url)
