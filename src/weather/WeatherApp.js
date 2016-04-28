@@ -1,27 +1,43 @@
+'use strict';
+
 var React = require('react-native');
 var {
   StyleSheet,
   Text,
   View,
   TextInput,
+  AsyncStorage,
   Image
 } = React;
 
 var Forecast = require('./Forecast');
+var CameraBG = require('./../view/bg/CameraBG');
+var LocationButton = require('./../view/button/LocationButton');
+var STORAGE_KEY = '@SmarterWeather:zip';
+var WEATHER_API_KEY = '122be18d719008590f9b1335db146963';
+var API_STEM = 'http://api.openweathermap.org/data/2.5/weather?';
 
 var WeatherApp = React.createClass({
   getInitialState() {
     return ({
-      zip: '',
       forecast: null
     });
   },
-  _handleTextChange(event) {
-    var zip = event.nativeEvent.text;
-    this.setState({
-      zip: zip
-    });
-    fetch('http://api.openweathermap.org/data/2.5/weather?q='+ zip + '&units=imperial&appid=122be18d719008590f9b1335db146963')
+  componentDidMount: function () {
+    AsyncStorage.getItem(STORAGE_KEY)
+    .then((value) => {
+      if (value != null) {
+        this._getForecastForZip(value);
+      }
+    })
+    .catch((error) => console.log('AsyncStorage error: ' + error.message))
+    .done();
+  },
+  _getForecastForZip: function (zip) {
+    this._getForecast(`${API_STEM}q=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
+  },
+  _getForecast: function (url, cb) {
+    fetch(url)
     .then((response) => response.json())
     .then((responseJSON) => {
       this.setState({
@@ -35,6 +51,18 @@ var WeatherApp = React.createClass({
       console.warn(error);
     });
   },
+  _getForecastForCoords: function (lat, lon) {
+    console.log('123');
+    console.log(lat);
+    console.log('123');
+    console.log(lon);
+    console.log(`${API_STEM}lat=${lat}&lon=${lon}&units=imperial&appid=${WEATHER_API_KEY}`);
+    this._getForecast(`${API_STEM}lat=${lat}&lon=${lon}&units=imperial&appid=${WEATHER_API_KEY}`);
+  },
+  _handleTextChange(event) {
+    var zip = event.nativeEvent.text;
+    this._getForecastForZip(zip);
+  },
   render() {
     var content = null;
     if (this.state.forecast != null) {
@@ -44,10 +72,7 @@ var WeatherApp = React.createClass({
         temp={this.state.forecast.temp} />;
     }
     return (
-      <View style={styles.container}>
-        <Image source={require('image!flowers') }
-          resizeMode='cover'
-          style={styles.backdrop}>
+      <CameraBG>
           <View style={styles.overlay}>
             <View style={styles.row}>
               <Text style={styles.mainText}>
@@ -59,10 +84,13 @@ var WeatherApp = React.createClass({
                   onSubmitEditing={this._handleTextChange}/>
               </View>
             </View>
+            <View style={styles.row}>
+              <LocationButton
+                onGetCoords={this._getForecastForCoords}/>
+            </View>
             {content}
           </View>
-        </Image>
-      </View>
+      </CameraBG>
     );
   }
 });
